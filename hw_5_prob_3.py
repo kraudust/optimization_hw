@@ -1,12 +1,8 @@
 import numpy as np
 from pyoptwrapper import optimize
-from pyoptsparse import NSGA2, SLSQP
+from pyoptsparse import NSGA2, SNOPT, ALPSO, SLSQP
 
-global func_calls
-func_calls = 0
 def mul_dim_rosen(x, part):
-	global func_calls
-	func_calls += 1
 	n = len(x) #number of dimensions
 	if n < 2:
 		return "Error, there need to be at least 2 dimensions"
@@ -19,13 +15,12 @@ def mul_dim_rosen(x, part):
 		g = np.zeros(n)
 		g[0] = -400*(x[0]*x[1]) + 400*x[0]**3 - 2 + 2*x[0]
 		for i in range(1, n-1):
-			g[i] = 200*x[i] - 200*x[i-1]**2 - 400*x[i+1]*x[i] + 400*x[i]**2 - 2 + x[i]
+			g[i] = 200*x[i] - 200*x[i-1]**2 - 400*x[i+1]*x[i] + 400*x[i]**3 - 2 + 2*x[i]
 		g[n-1] = 200*x[n-1] - 200*x[n-2]**2
 		return f, [], g, []
 	
 	
 if __name__ == '__main__':
-	global func_calls
 	x = [0, 0]
 	f = []
 	part = ["a", "b", "c"]
@@ -36,9 +31,11 @@ if __name__ == '__main__':
 			lb = -5.0*np.ones(len(x))
 			if part[i] == "a":
 				optimizer = NSGA2()
+				#optimizer = ALPSO()
 				optimizer.setOption('maxGen', 200)
 				func, _ = mul_dim_rosen(x, part[i])
-			elif part[i] == "b":
+			if part[i] == "b":
+				func, _ = mul_dim_rosen(x, part[i])
 				optimizer = SNOPT()
 			elif part[i] == "c":
 				optimizer = SNOPT()
@@ -47,11 +44,12 @@ if __name__ == '__main__':
 			xopt, fopt, info = optimize(mul_dim_rosen, x, lb, ub, optimizer, args = [part[i]])
 			print "n: ", len(x)
 			print "x_in: ", x
-			print "f_in: ", func, "\n"
-			print "function calls: ", func_calls
+			print "f_in: ", func
 			print "xopt: ", xopt
 			print "fopt: ", fopt
+			print "info: ", info, "\n\n"
 			x = np.append(x, x)
 		x = [0, 0]
-		func_calls = 0
+		
+	
 	
