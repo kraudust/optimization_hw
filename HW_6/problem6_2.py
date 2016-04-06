@@ -12,10 +12,8 @@ def func(x):
 
 def func_b(x):
 	f = x[0]**2. + 2.*x[1]**2. + 3.*x[2]**2.
-	#delta_c1 = 0.4
-	#delta_c2 = 0.75
-	delta_c1 = 4.
-	delta_c2 = 4.
+	delta_c1 = 0.4
+	delta_c2 = 0.75
 	c1 = 6. - 2.*x[0] - x[1] - 2.*x[2] + delta_c1 #less than or equal to zero
 	c2 = 10. - 5.*x[0] + x[1] + 3.*x[2] + delta_c2 #less than or equal to zero
 	c = np.array([c1, c2])
@@ -60,9 +58,9 @@ def stats_func(n, function, x_opt):
 	return mu, std, f, c, reliability
 
 if __name__ == '__main__':
-	x1 = 1.
+	x1 = 6.
 	x2 = 2.
-	x3 = 3.
+	x3 = 7.
 	lb = -100.
 	ub = 100.
 	x_orig = np.array([x1, x2, x3])
@@ -95,5 +93,5 @@ if __name__ == '__main__':
 	##################### Part (d) #########################################
 	n = 1000000
 	print "Reliability(a): ", stats_func(n, func, xopt_a)[4]
-	print "Reliability(b): ", stats_func(n, func_b, xopt_b)[4]
-	print "Reliability(c): ", stats_func(n, func_c, xopt_c)[4]
+	print "Reliability(b): ", stats_func(n, func, xopt_b)[4]
+	print "Reliability(c): ", stats_func(n, func, xopt_c)[4]
