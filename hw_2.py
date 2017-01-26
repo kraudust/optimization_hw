@@ -26,7 +26,6 @@ def simple_back_line(x, p, alpha, rho, mu, f, f_of_x_k, g_of_x_k, args_f = []):
         while f((x + alpha*p), args_f)[0] > (f_of_x_k + mu*alpha*np.dot(g_of_x_k,p)):
             alpha = rho*alpha
         return alpha
-
 def make_contour(x1, x2, y1, y2, func, x_label, y_label, title):
     # --- setup grid for contour plot ---
     nx = 200  # number of points in x-direction
@@ -46,7 +45,6 @@ def make_contour(x1, x2, y1, y2, func, x_label, y_label, title):
     plt.xlabel(x_label)  # labels for axes
     plt.ylabel(y_label)
     plt.title(title)
-
 def matyas_fun(x):
     """
     :param x: parameters for Matyas function in order [x1, x2]
@@ -61,7 +59,6 @@ def matyas_fun(x):
     g = np.array([g1, g2])
     matyas_func_calls = matyas_func_calls + 1
     return f, g
-
 def rosenbrock_fun(x):
     """
     :param x: parameters for Matyas function in order [x1, x2]
@@ -272,7 +269,7 @@ if __name__ == '__main__': #main code goes here
     plt.xlabel('Major Iterations')
     plt.ylabel('Infinity norm of gradient')
     plt.title('Rosenbrock Function with $x_0 = (-1.5,0)$')
-    #plt.savefig('Pictures/HW_2/conv_metric_vs_iterations_Rosenbrock.pdf', format = 'pdf')
+    plt.savefig('Pictures/HW_2/conv_metric_vs_iterations_Rosenbrock.pdf', format = 'pdf')
 
     #Make contour plot and plot iterations on it for my optimizer
     make_contour(-2,2,-1,3,rosenbrock_fun,"x1", "x2", "Rosenbrock Function")
@@ -284,7 +281,7 @@ if __name__ == '__main__': #main code goes here
         x2[i] = x_val[i][1]
     plt.plot(x1, x2, 'k-o',label = 'Iteration History')
     plt.legend()
-    #plt.savefig('Pictures/HW_2/iterations_contour_Rosenbrock.pdf', format = 'pdf')
+    plt.savefig('Pictures/HW_2/iterations_contour_Rosenbrock.pdf', format = 'pdf')
 
     #----------------------------------------------Matyas Function--------------------------------------------------
     print "--------------------------------------------Matyas--------------------------------------------------"
@@ -311,7 +308,7 @@ if __name__ == '__main__': #main code goes here
     plt.xlabel('Major Iterations')
     plt.ylabel('Infinity norm of gradient')
     plt.title('Matyas Function with $x_0 = (9,7)$')
-    #plt.savefig('Pictures/HW_2/conv_metric_vs_iterations_Matyas.pdf', format = 'pdf')
+    plt.savefig('Pictures/HW_2/conv_metric_vs_iterations_Matyas.pdf', format = 'pdf')
 
     #Make contour plot and plot iterations on it for my optimizer
     make_contour(-10,10,-10,10, matyas_fun, "x1", "x2", "Matyas Function")
@@ -323,7 +320,7 @@ if __name__ == '__main__': #main code goes here
         x2[i] = x_val[i][1]
     plt.plot(x1, x2, 'k-o', label = 'Iteration History')
     plt.legend()
-    #plt.savefig('Pictures/HW_2/iterations_contour_Matyas.pdf', format = 'pdf')
+    plt.savefig('Pictures/HW_2/iterations_contour_Matyas.pdf', format = 'pdf')
 
     #-------------------------------------------Brachistochrone Function--------------------------------------------
     print "-----------------------------------------Brachistochrone------------------------------------------------"
@@ -353,7 +350,7 @@ if __name__ == '__main__': #main code goes here
     plt.xlabel('Major Iterations')
     plt.ylabel('Infinity norm of gradient')
     plt.title('Brachistochrone Function with n = 32')
-    #plt.savefig('Pictures/HW_2/conv_metric_vs_iterations_Brachistochrone.pdf', format = 'pdf')
+    plt.savefig('Pictures/HW_2/conv_metric_vs_iterations_Brachistochrone.pdf', format = 'pdf')
 
     #plot a few configurations of the track every n iterations
     n = 4
@@ -378,7 +375,7 @@ if __name__ == '__main__': #main code goes here
     plt.title('Brachistochrone Function')
     plt.xlabel('X')
     plt.ylabel('Y')
-    #plt.savefig('Pictures/HW_2/iterations_history_Brachistochrone.pdf', format = 'pdf')
+    plt.savefig('Pictures/HW_2/iterations_history_Brachistochrone.pdf', format = 'pdf')
 
     #Explore effect of increased problem dimensionality.... with plots... and linear initial seeding
     n = [4, 8, 16, 32, 64, 128, 256, 512] #number of points to put on brachistochrone function
@@ -400,7 +397,7 @@ if __name__ == '__main__': #main code goes here
     plt.xlabel('Dimensionality (n)')
     plt.ylabel('# of function calls/# of major iterations')
     plt.title('Brachistrochrone Increased Dimensionality Plot with Linear Initial Seeding')
-    #plt.savefig('Pictures/HW_2/increased_dimensionality_Brachistochrone.pdf', format = 'pdf')
+    plt.savefig('Pictures/HW_2/increased_dimensionality_Brachistochrone.pdf', format = 'pdf')
 
     #Explore effect of increased problem dimensionality.... with plots... and seeding from previous n
 
@@ -456,5 +453,5 @@ if __name__ == '__main__': #main code goes here
     plt.xlabel('Dimensionality (n)')
     plt.ylabel('# of function calls/# of major iterations')
     plt.title('Seeding from previous n')
-    #plt.savefig('Pictures/HW_2/increased_dimensionality_Brachistochrone2.pdf', format = 'pdf')
+    plt.savefig('Pictures/HW_2/increased_dimensionality_Brachistochrone2.pdf', format = 'pdf')
     plt.show() #show all plots
